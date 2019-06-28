@@ -3,8 +3,11 @@ if !exists('g:test#javascript#jest#file_pattern')
 endif
 
 function! test#javascript#jest#test_file(file) abort
+  if !exists('g:test#javascript#jest#package_name')
+    let g:test#javascript#jest#package_name = 'jest'
+  endif
   return a:file =~# g:test#javascript#jest#file_pattern
-    \ && test#javascript#has_package('jest')
+    \ && (test#javascript#has_package(g:test#javascript#jest#package_name))
 endfunction
 
 function! test#javascript#jest#build_position(type, position) abort
