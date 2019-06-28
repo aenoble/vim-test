@@ -4,7 +4,7 @@ endif
 
 function! test#javascript#jest#test_file(file) abort
   return a:file =~# g:test#javascript#jest#file_pattern
-    \ && test#javascript#has_package('jest')
+    \ && (test#javascript#has_package('jest') || test#javascript#has_package('vue-jest'))
 endfunction
 
 function! test#javascript#jest#build_position(type, position) abort
@@ -32,6 +32,9 @@ function! test#javascript#jest#build_args(args) abort
 endfunction
 
 function! test#javascript#jest#executable() abort
+  if test#javascript#has_package('vue-jest')
+    return 'node_modules/.bin/vue-cli-service test:unit'
+  endif
   if filereadable('node_modules/.bin/jest')
     return 'node_modules/.bin/jest'
   else
