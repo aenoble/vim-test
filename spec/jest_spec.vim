@@ -140,4 +140,16 @@ describe "Jest"
     end
   end
 
+  context "with a specifiec package name"
+    after
+      unlet g:test#javascript#jest#package_name
+    end
+
+    it 'sets option to jest without it set'
+      Expect g:test#javascript#jest#package_name == 'jest'
+
+
+    end
+  end
+
 end
